@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TodoController {
-    @GetMapping("/testTodo")
-    @ResponseBody
-    public String testTodo() {
-        return "Todo";
-    }
 
     @GetMapping("/home")
     public String goHome() {
         return "content/home";
+    }
+
+    @GetMapping("/todos")
+    public String todoListPage() {
+        return "content/todo_list";
     }
 
 }
