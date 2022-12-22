@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 public class TodoController {
 
@@ -16,6 +18,13 @@ public class TodoController {
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
+
+    @GetMapping("/api/todos")
+    @ResponseBody
+    public List<Todo> getTodos() {
+        return todoService.getTodos();
+    }
+
 
     @PostMapping("/api/todos")
     @ResponseBody

@@ -4,6 +4,8 @@ import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.domain.TodoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoService {
 
@@ -11,6 +13,10 @@ public class TodoService {
 
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
+    }
+
+    public List<Todo> getTodos() {
+        return todoRepository.getAll();
     }
 
     public Todo createTodo(Todo todoWithoutId) {
