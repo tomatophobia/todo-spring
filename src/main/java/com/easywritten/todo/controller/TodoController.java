@@ -3,6 +3,7 @@ package com.easywritten.todo.controller;
 import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.service.TodoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,8 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
-    public String todoListPage() {
+    public String todoListPage(Model model) {
+        model.addAttribute("todos", todoService.getTodos());
         return "content/todo_list";
     }
 

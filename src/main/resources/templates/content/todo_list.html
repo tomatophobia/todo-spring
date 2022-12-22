@@ -5,9 +5,17 @@
   <title>TODO 리스트</title>
 </head>
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
-<h1>TODO 리스트</h1>
-
-<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/body :: header}"></div>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <h1>TODO 리스트</h1>
+  <div th:if="${todos.empty}">
+    No Books Available
+  </div>
+  <div th:each="todo : ${todos}" class="d-flex flex-row justify-content-center align-items-center">
+    <div><span th:text="${todo.id}"> ID </span></div>
+    <div><span th:text="${todo.content}"> Content </span></div>
+  </div>
+</div>
+<div th:replace="~{fragments/body :: footer}"></div>
 </body>
 </html>
