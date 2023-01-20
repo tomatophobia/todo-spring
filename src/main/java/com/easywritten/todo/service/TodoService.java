@@ -15,20 +15,24 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getTodos() {
+    public List<Todo> getAll() {
         return todoRepository.getAll();
     }
 
-    public Todo getTodo(Long id) {
+    public Todo get(Long id) {
         return todoRepository.get(id);
     }
 
-    public Todo createTodo(Todo todoWithoutId) {
+    public Todo create(Todo todoWithoutId) {
         return todoRepository.create(todoWithoutId);
     }
 
-    public int deleteTodo(Long id) {
+    public int delete(Long id) {
         return todoRepository.delete(id);
+    }
+
+    public int replaceOrCreate(Todo todo) {
+        return todoRepository.replaceOrCreate(todo);
     }
 
 }

@@ -34,7 +34,7 @@ public class SpringJdbcTemplateTodoRepository implements TodoRepository {
     @Override
     public List<Todo> getAll() {
         return this.namedParameterJdbcTemplate.query(
-                "select id, content from todo",
+                "SELECT id, content FROM todo",
                 (resultSet, rowNum) -> new Todo(resultSet.getLong("id"), resultSet.getString("content"))
         );
     }
@@ -42,7 +42,7 @@ public class SpringJdbcTemplateTodoRepository implements TodoRepository {
     @Override
     public Todo get(Long id) {
         return this.namedParameterJdbcTemplate.queryForObject(
-                "select id, content from todo where id = :id",
+                "SELECT id, content FROM todo WHERE id = :id",
                 new MapSqlParameterSource("id", id),
                 (resultSet, rowNum) -> new Todo(resultSet.getLong("id"), resultSet.getString("content"))
         );
@@ -59,8 +59,17 @@ public class SpringJdbcTemplateTodoRepository implements TodoRepository {
     @Override
     public int delete(Long id) {
         return this.namedParameterJdbcTemplate.update(
-                "delete from todo where id = :id",
+                "DELETE FROM todo WHERE id = :id",
                 new MapSqlParameterSource("id", id)
+        );
+    }
+
+    @Override
+    public int replaceOrCreate(Todo todo) {
+        // http://www.h2database.com/html/commands.html#merge_into
+        return this.namedParameterJdbcTemplate.update(
+                "MERGE INTO todo KEY(id) VALUES(:id, :content)",
+                new BeanPropertySqlParameterSource(todo)
         );
     }
 
