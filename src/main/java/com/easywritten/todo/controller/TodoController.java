@@ -4,10 +4,7 @@ import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,13 @@ public class TodoController {
     @ResponseBody
     public Todo createTodo(@RequestBody Todo todoWithoutId) {
         return todoService.createTodo(todoWithoutId);
+    }
+
+    @DeleteMapping("/api/todos/{id}")
+    @ResponseBody
+    public int deleteTodo(@PathVariable Long id) {
+        // Long 타입으로 전달이 될까? => 테스트 해보니까 된다.
+        return todoService.deleteTodo(id);
     }
 
     @GetMapping("/todos")

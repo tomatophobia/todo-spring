@@ -23,4 +23,8 @@ public class TodoService {
         return todoRepository.create(todoWithoutId);
     }
 
+    public int deleteTodo(Long id) {
+        return todoRepository.delete(id);
+    }
+
 }

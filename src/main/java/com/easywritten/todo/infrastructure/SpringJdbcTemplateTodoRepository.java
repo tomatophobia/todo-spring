@@ -4,6 +4,7 @@ import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.domain.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -49,6 +50,14 @@ public class SpringJdbcTemplateTodoRepository implements TodoRepository {
         final Number id = this.insertTodo.executeAndReturnKey(namedParameters);
         todoWithoutId.setId(id.longValue());
         return todoWithoutId;
+    }
+
+    @Override
+    public int delete(Long id) {
+        return this.namedParameterJdbcTemplate.update(
+                "delete from todo where id = :id",
+                new MapSqlParameterSource("id", id)
+        );
     }
 
 }
