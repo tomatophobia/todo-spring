@@ -3,6 +3,7 @@ package com.easywritten.todo.infrastructure;
 import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.domain.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -31,16 +32,19 @@ public class SpringJdbcTemplateTodoRepository implements TodoRepository {
     }
 
     @Override
-    public Todo get(long id) {
-        return null;
-    }
-
-    @Override
     public List<Todo> getAll() {
         return this.namedParameterJdbcTemplate.query(
                 "select id, content from todo",
-                (resultSet, rowNum) -> new Todo(resultSet.getLong("id"), resultSet.getString("content")
-                )
+                (resultSet, rowNum) -> new Todo(resultSet.getLong("id"), resultSet.getString("content"))
+        );
+    }
+
+    @Override
+    public Todo get(Long id) {
+        return this.namedParameterJdbcTemplate.queryForObject(
+                "select id, content from todo where id = :id",
+                new MapSqlParameterSource("id", id),
+                (resultSet, rowNum) -> new Todo(resultSet.getLong("id"), resultSet.getString("content"))
         );
     }
 

@@ -19,6 +19,10 @@ public class TodoService {
         return todoRepository.getAll();
     }
 
+    public Todo getTodo(Long id) {
+        return todoRepository.get(id);
+    }
+
     public Todo createTodo(Todo todoWithoutId) {
         return todoRepository.create(todoWithoutId);
     }

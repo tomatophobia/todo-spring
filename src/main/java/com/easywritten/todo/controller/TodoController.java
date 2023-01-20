@@ -23,6 +23,12 @@ public class TodoController {
         return todoService.getTodos();
     }
 
+    @GetMapping("/api/todos/{id}")
+    @ResponseBody
+    public Todo getTodo(@PathVariable Long id) {
+        return todoService.getTodo(id);
+    }
+
 
     @PostMapping("/api/todos")
     @ResponseBody
