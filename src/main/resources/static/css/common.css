@@ -5,6 +5,15 @@ body {
   align-content: center;
   flex-wrap: wrap;
 }
+
 .page {
   width: 640px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
 }
