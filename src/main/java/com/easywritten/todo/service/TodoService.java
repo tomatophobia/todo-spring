@@ -2,6 +2,7 @@ package com.easywritten.todo.service;
 
 import com.easywritten.todo.domain.Todo;
 import com.easywritten.todo.domain.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class TodoService {
 
     public final TodoRepository todoRepository;
 
+    @Autowired
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
